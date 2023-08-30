@@ -1,6 +1,11 @@
 #ifndef BINARY_TREE
 #define BINARY_TREE
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
+
 /* Structures to use */
 
 /**
