@@ -3,7 +3,7 @@
 void free_que(levelorder_queue_t *head);
 void print_push(binary_tree_t *node, levelorder_queue_t *head,
 		levelorder_queue_t **tail, void (*func)(int));
-void remove(levelorder_queue_t **head);
+void pop_out(levelorder_queue_t **head);
 levelorder_queue_t *new_node(binary_tree_t *node);
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 
@@ -16,7 +16,7 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
   *
   */
 
-levelorder_queue_t *new_node(binary_tree_t *node);
+levelorder_queue_t *new_node(binary_tree_t *node)
 {
 	levelorder_queue_t *newNode;
 
@@ -35,7 +35,7 @@ levelorder_queue_t *new_node(binary_tree_t *node);
   *
   */
 
-void free_que(levelorder_queue_t *head);
+void free_que(levelorder_queue_t *head)
 {
 	levelorder_queue_t *temp;
 
@@ -57,7 +57,7 @@ void free_que(levelorder_queue_t *head);
   */
 
 void print_push(binary_tree_t *node, levelorder_queue_t *head,
-		 levelorder_queue_t **tail, void (*func)(int));
+		 levelorder_queue_t **tail, void (*func)(int))
 {
 	levelorder_queue_t *newNode;
 
@@ -65,23 +65,23 @@ void print_push(binary_tree_t *node, levelorder_queue_t *head,
 
 	if (node->left != NULL)
 	{
-		newNode = create_node(node->left);
-		if (new == NULL)
+		newNode = new_node(node->left);
+		if (newNode == NULL)
 		{
-			free_queue(head);
+			free_que(head);
 			exit(1);
 		}
 		(*tail)->next = newNode;
 		*tail = newNode;
 	}
 
-	if (node->next->right != NULL)
+	if (node->right != NULL)
 	{
-		newNode = create_node(node->right);
+		newNode = new_node(node->right);
 
-		if (new == NULL)
+		if (newNode == NULL)
 		{
-			free_queue(head);
+			free_que(head);
 			exit(1);
 		}
 		(*tail)->next = newNode;
@@ -90,13 +90,13 @@ void print_push(binary_tree_t *node, levelorder_queue_t *head,
 }
 
 /**
-  *remove - pop the head of a queue
+  *pop_out - pop the head of a queue
   *@head: the hed node
   *
   *
   */
 
-void remove(levelorder_queue_t **head)
+void pop_out(levelorder_queue_t **head)
 {
 	levelorder_queue_t *temp;
 
@@ -124,6 +124,6 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 	while (head != NULL)
 	{
 		print_push(head->node, head, &tail, func);
-		remove(&head);
+		pop_out(&head);
 	}
 }
